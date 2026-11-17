@@ -31,7 +31,25 @@ final class MetadataController
     }
 
     #[Route('/metadata', name: 'sp_metadata', methods: ['GET'])]
-    public function __invoke(): Response
+    public function metadata(): Response
+    {
+        return new Response(
+            $this->buildMetadataXml(),
+            headers: ['Content-Type' => 'application/samlmetadata+xml; charset=utf-8'],
+        );
+    }
+
+    // Same document, served as text/xml so browsers render it instead of downloading it.
+    #[Route('/metadata/view', name: 'sp_metadata_view', methods: ['GET'])]
+    public function view(): Response
+    {
+        return new Response(
+            $this->buildMetadataXml(),
+            headers: ['Content-Type' => 'text/xml; charset=utf-8'],
+        );
+    }
+
+    private function buildMetadataXml(): string
     {
         $certificatePem = PEM::fromFile('/certs/own/sp.crt');
         if (
@@ -74,6 +92,6 @@ final class MetadataController
             throw new \RuntimeException('Unable to serialize SP metadata as XML.');
         }
 
-        return new Response($xml, headers: ['Content-Type' => 'application/samlmetadata+xml; charset=utf-8']);
+        return $xml;
     }
 }
