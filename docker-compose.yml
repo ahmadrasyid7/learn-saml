@@ -1,0 +1,26 @@
+# Browse via http://idp.localhost:8081 and http://sp.localhost:8082.
+# Separate hostnames keep each side's cookies apart (cookies ignore ports).
+services:
+  idp:
+    build: ./docker
+    ports:
+      - "8081:80"
+    volumes:
+      - ./idp:/app
+      - ./certs/idp:/certs/own:ro
+      - ./certs/sp/sp.crt:/certs/peer.crt:ro
+    environment:
+      ENTITY_ID: http://idp.localhost:8081/metadata
+      BASE_URL: http://idp.localhost:8081
+
+  sp:
+    build: ./docker
+    ports:
+      - "8082:80"
+    volumes:
+      - ./sp:/app
+      - ./certs/sp:/certs/own:ro
+      - ./certs/idp/idp.crt:/certs/peer.crt:ro
+    environment:
+      ENTITY_ID: http://sp.localhost:8082/metadata
+      BASE_URL: http://sp.localhost:8082
