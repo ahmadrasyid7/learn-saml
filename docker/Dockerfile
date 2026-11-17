@@ -1,4 +1,4 @@
-FROM php:8.4-cli
+FROM php:8.5-cli
 
 # dom, libxml, openssl, zlib and session are already compiled into the base image.
 # unzip is needed by Composer to extract downloaded packages.
