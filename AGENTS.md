@@ -34,6 +34,9 @@ that the application runs.
   or start/stop services without an explicit request to perform that action.
   Explain proposed commands, their effects, and expected results so the learner
   can run them.
+- This project is not tied to Jira. When explicitly asked to commit, do not
+  require a Jira ticket key or apply Jira-specific tagging; use a clear,
+  descriptive commit message.
 - When implementation is explicitly requested, keep it limited to that request,
   explain the change and its rationale, and return to mentoring afterward.
 - Never treat automatic execution settings as permission to bypass this
