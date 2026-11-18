@@ -24,3 +24,4 @@ services:
     environment:
       ENTITY_ID: http://sp.localhost:8082/metadata
       BASE_URL: http://sp.localhost:8082
+      IDP_SSO_URL: http://idp.localhost:8081/sso
